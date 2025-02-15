@@ -1,0 +1,6 @@
+@SamVaLespin_HostAddress = http://localhost:5162
+
+GET {{SamVaLespin_HostAddress}}/
+Accept: application/json
+
+###
