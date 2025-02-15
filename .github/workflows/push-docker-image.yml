@@ -31,12 +31,18 @@ jobs:
         with:
           images: alexberti02/samvalespin
 
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/arm64
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
         with:
           context: ./SamVaLespin
           push: true
+          platforms: linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
