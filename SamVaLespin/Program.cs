@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using SamVaLespin.Services;
 
 var builder = WebApplication.CreateBuilder(args);

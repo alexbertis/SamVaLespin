@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SamVaLespin.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SamVaLespin.Controllers
 {
@@ -19,9 +16,6 @@ namespace SamVaLespin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            return File(imageService.GetRandomPicture(), "image/jpeg");
-        }
+        public IActionResult Index() => File(imageService.GetRandomPicture(), "image/jpeg");
     }
 }
