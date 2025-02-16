@@ -22,7 +22,7 @@ jobs:
           lfs: true
 
       - name: Check out LFS
-        uses: git lfs checkout
+        run: git lfs checkout
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
