@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpLogging;
 using Prometheus;
 using SamVaLespin.Services;
 
@@ -14,6 +15,18 @@ builder.Services.AddMetricServer(options =>
     options.Port = 8091;
 });
 
+builder.Services.AddW3CLogging(logging =>
+{
+    // Log all W3C fields
+    logging.LoggingFields = W3CLoggingFields.Date | W3CLoggingFields.Time | W3CLoggingFields.ConnectionInfoFields 
+                            | W3CLoggingFields.TimeTaken | W3CLoggingFields.ProtocolStatus | W3CLoggingFields.Request;
+    logging.AdditionalRequestHeaders.Add("X-Forwarded-For");
+
+    logging.FileSizeLimit = 5 * 1024 * 1024;
+    logging.RetainedFileCountLimit = 14;
+    logging.FileName = "netapp";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +34,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseW3CLogging();
 
 app.MapControllerRoute(
     name: "default",
