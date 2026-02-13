@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.HttpLogging;
 using Prometheus;
+using SamVaLespin.Options;
 using SamVaLespin.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<ImageFileOptions>(builder.Configuration.GetSection(ImageFileOptions.ConfigurationSection));
 
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSingleton<ImageService>();
+builder.Services.AddSingleton<TimeService>();
 
 builder.Services.UseHttpClientMetrics();
 builder.Services.AddMetricServer(options =>
